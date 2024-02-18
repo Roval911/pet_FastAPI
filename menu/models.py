@@ -1,5 +1,7 @@
+from sqlalchemy import Column, String
+
 from database import Base
 
 
 class Menu(Base):
-    pass
+    description = Column(String)

@@ -9,6 +9,7 @@ from database import Base, DATABASE_URL
 from menu.models import Menu
 from submenu.models import Submenu
 from dish.models import Dish
+from users.models import User
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

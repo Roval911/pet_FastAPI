@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, DeclarativeBase, declared_attr
 from sqlalchemy import Column, String, UUID
@@ -17,6 +19,5 @@ class Base(DeclarativeBase):
     def __tablename__(cls) -> str:
         return f"{cls.__name__.lower()}s"
 
-    id = Column(UUID, primary_key=True, index=True)
+    id = Column(UUID, default=uuid.uuid4, primary_key=True, index=True, nullable=False)
     title = Column(String, nullable=False)
-    description = Column(String)
