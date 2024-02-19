@@ -28,3 +28,4 @@ async def login_user(response: Response, user_data: SUserLogin):
         raise HTTPException(status_code=401)
     access_token = create_access_token({'sub': str(user.id) })
     response.set_cookie('access_token', access_token, httponly=True)
+    return {'access_token': access_token}
