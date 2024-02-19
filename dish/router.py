@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from dish.dao import DishDAO
 
-
 router = APIRouter(
     prefix="/dishs",
     tags=["Блюда"],

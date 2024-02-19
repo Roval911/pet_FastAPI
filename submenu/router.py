@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from submenu.dao import SubmenuDAO
 
-
 router = APIRouter(
     prefix="/Submenus",
     tags=["Подменю"],

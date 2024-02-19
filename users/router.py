@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Response, Depends
 
 from users.auth import get_password_hash, authenticate_user, create_access_token
 from users.dao import UserDAO
+from users.dependencies import get_current_user
+from users.models import User
 from users.schemas import SUserRegister, SUserLogin
 
 router = APIRouter(
@@ -26,6 +28,16 @@ async def login_user(response: Response, user_data: SUserLogin):
     user = await authenticate_user(user_data.email, user_data.password)
     if not user:
         raise HTTPException(status_code=401)
-    access_token = create_access_token({'sub': str(user.id) })
+    access_token = create_access_token({'sub': str(user.id)})
     response.set_cookie('access_token', access_token, httponly=True)
     return {'access_token': access_token}
+
+
+@router.post('/logout')
+async def logout_user(response: Response):
+    response.delete_cookie('access_token')
+
+
+@router.get('/me')
+async def read_user(current_user: User = Depends(get_current_user)):
+    return current_user
